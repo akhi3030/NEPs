@@ -154,11 +154,10 @@ fn send_tokens(amount: Balance, receiver: AccountId) {
     near_sdk::assert_one_yocto();
 
     // Only the actual owner of the tokens should be allowed to call this
-    // function.  To ensure this, the function checks if the caller of the
-    // function is the same as the parent account that created it.
-    let parent_account_id = HostFunctions::parent_account_id();
+    // function.
+    let my_account_id = HostFunctions::current_account_id();
     let msg_sender = HostFunctions::predecessor_account_id();
-    assert_eq!(parent_account_id, msg_sender);
+    assert_eq!(my_account_id, msg_sender);
 
 
     // Update the account balance
